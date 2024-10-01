@@ -81,6 +81,7 @@ public:
 	{
 		size = other.size;
 		arr = new int[size];
+		index = other.index;
 		for (int i = 0; i < size; i++)
 		{
 			arr[i] = other.arr[i];

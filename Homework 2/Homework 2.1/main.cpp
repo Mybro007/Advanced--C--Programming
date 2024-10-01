@@ -1,14 +1,5 @@
 #include<iostream>
 
-class SizeException : std::exception
-{
-public:
-	const char* what() const noexcept override
-	{
-		return "Array is already full !!!\n";
-	}
-};
-
 class smart_array
 {
 private:
@@ -24,18 +15,14 @@ public:
 
 	void add_element(int elem)
 	{
-		try
+		if (index >= size)
 		{
-			if (index >= size)
-			{
-				throw SizeException();
-			}
+			std::cout<< "Array is already full !!!\n";
+		}
+		else
+		{
 			arr[index] = elem;
 			index++;
-		}
-		catch (const SizeException& ex)
-		{
-			std::cout << ex.what();
 		}
 	}
 
