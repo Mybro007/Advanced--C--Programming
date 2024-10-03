@@ -114,6 +114,12 @@ TEST_CASE("List test", "[list]")
         CHECK(list1.PopFront() == 5);
     }
 
+    SECTION("Empty list")
+    {
+        REQUIRE_THROWS(list1.PopBack());
+        REQUIRE_THROWS(list1.PopFront());
+    }
+
     SECTION("Complex test")
     {
         List list2;
