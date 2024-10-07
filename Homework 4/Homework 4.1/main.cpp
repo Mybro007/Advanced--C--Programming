@@ -9,13 +9,14 @@ T Square(T& num)
 }
 
 template<typename T>
-std::vector<T> Square(std::vector<T>& vec)
+std::vector<T> Square(const std::vector<T> vec)
 {
+	std::vector<T> vec1;
 	for (int i=0; i<vec.size(); i++)
 	{
-		vec[i] = vec[i]*vec[i];
+		vec1.push_back(vec[i]*vec[i]);
 	}
-	return vec;
+	return vec1;
 }
 
 template<typename V>
@@ -78,7 +79,7 @@ int main()
 				case 1:
 				{
 					std::vector<int> vec = VectorCr(size);
-					Square(vec);
+					vec = Square(vec);
 					std::cout << "Your sequence squared: ";
 					VectorPrint(vec);
 				}
@@ -87,7 +88,7 @@ int main()
 				case 2:
 				{
 					std::vector<double> vec = VectorCr(static_cast<double>(size));
-					Square(vec);
+					vec = Square(vec);
 					std::cout << "Your sequence squared: ";
 					VectorPrint(vec);
 				}
