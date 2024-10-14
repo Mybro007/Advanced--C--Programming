@@ -6,9 +6,7 @@
 
 void get_text(std::string& text);
 
-std::map<char, int> get_map(const std::string& text);
-
-std::multimap<int, char> map_reverse(const std::map<char, int>& text);
+std::multimap<int, char> get_map(const std::string& text);
 
 void print_answr(const std::multimap<int, char>& rev);
 
@@ -17,9 +15,8 @@ int main()
 {
 	std::string text;
 	get_text(text);
-	std::map<char, int> answ = get_map(text);
-	std::multimap<int, char> rev = map_reverse(answ);
-	print_answr(rev);
+	std::multimap<int, char> answ = get_map(text);
+	print_answr(answ);
 	return 0;
 }
 
@@ -44,30 +41,25 @@ void get_text(std::string& text)
 	}
 }
 
-std::map<char, int> get_map(const std::string& text)
+std::multimap<int, char> get_map(const std::string& text)
 {
-	std::map<char, int> answ;
-
+	std::map<char, int> m;
 	for (int i = 0; i < text.size(); i++)
 	{
-		answ[text[i]]++;
+		m[text[i]]++;
 	}
 
-	return answ;
-}
+	std::multimap<int, char> answ;
 
-std::multimap<int, char> map_reverse(const std::map<char, int>& text)
-{
-	std::multimap<int, char> rev_map;
-	for (std::pair<char, int> pr : text)
+	for (std::pair<char, int> pr : m)
 	{
 		std::pair<int, char> rpr;
 		rpr.first = pr.second;
 		rpr.second = pr.first;
-		rev_map.insert(rpr);
+		answ.insert(rpr);
 	}
 
-	return rev_map;
+	return answ;
 }
 
 void print_answr(const std::multimap<int, char>& rev)

@@ -1,5 +1,6 @@
 #pragma warning( disable : 6386 )
 #include<iostream>
+#include<algorithm>
 
 template<class T>
 class MyVector
@@ -12,6 +13,17 @@ private:
 public:
 	MyVector() : arr(new T[1]), size_(0), capacity_(1)
 	{}
+
+	MyVector(const MyVector& v)
+	{
+		size_ = v.size_;
+		capacity_ = v.capacity_;
+		arr = new T[capacity_];
+		for (size_t i = 0; i < size_; i++)
+		{
+			arr[i] = v.arr[i];
+		}
+	}
 
 	size_t capacity()
 	{
@@ -53,6 +65,27 @@ public:
 		arr[size_ - 1] = obj;
 	}
 
+	~MyVector()
+	{
+		delete[] arr;
+	}
+
+	MyVector& operator=(const MyVector& other)
+	{
+		if (&other != this)
+		{
+			size_ = other.size_;
+			capacity_ = other.capacity_;
+			delete[] arr;
+			arr = new T[capacity_];
+			for (size_t i = 0; i < size_; i++)
+			{
+				arr[i] = other.arr[i];
+			}
+		}
+		return *this;
+	}
+
 	T& operator[](int index)
 	{
 		return arr[index];
@@ -67,10 +100,23 @@ int main()
 	{
 		v1.push_back(i+1);
 	}
-	v1[52] = 999;
+	v1[51] = 999;
 	std::cout << "Size of vector is: " << v1.size() << "\n";				//must print 100
 	std::cout << "The second element is: " << v1.at(1) << "\n";				//must print 2
 	std::cout << "Capacity of vector is: " << v1.capacity() << "\n";		//must print 128
-	std::cout << "The 52-nd element is: " << v1[52] << "\n";				//must print 999
+	std::cout << "The 52-nd element is: " << v1[51] << "\n";				//must print 999
+	std::cout << "\n\n------------------------------------------------------------------\n\n";
+
+	MyVector<int> v2{ v1 };
+	std::cout << "The 52-nd element is: " << v2[51] << "\n";
+
+	std::cout << "\n\n------------------------------------------------------------------\n\n";
+
+	MyVector<int> v3;
+	v3.push_back(3);
+	v3.push_back(2);
+	v3 = v1;
+	std::cout << "The 52-nd element is: " << v3[51] << "\n";
+
 	return 0;
 }
