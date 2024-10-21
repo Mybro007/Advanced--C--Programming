@@ -5,7 +5,9 @@ template<class T>
 
 void move_vectors(std::vector<T>& v_paste, std::vector<T>& v_copy)
 {
-	v_paste = std::move(v_copy);
+	std::vector<T> tmp = std::move(v_copy);
+	v_copy = std::move(v_paste);
+	v_paste = std::move(tmp);
 }
 
 int main()
