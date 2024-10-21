@@ -25,7 +25,7 @@ BigInt::BigInt(const BigInt& other)
 
 BigInt::BigInt(BigInt&& other) noexcept
 {
-    numb_ = other.numb_;
+    numb_ = std::move(other.numb_);
 }
 
 std::string BigInt::get_num()
@@ -349,7 +349,7 @@ BigInt& BigInt::operator=(BigInt&& other) noexcept
 {
     if (&other != this)
     {
-        numb_ = other.numb_;
+        numb_ = std::move(other.numb_);
     }
     return *this;
 }
